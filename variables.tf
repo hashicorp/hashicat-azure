@@ -71,5 +71,5 @@ variable "width" {
 
 variable "placeholder" {
   default     = "placekitten.com"
-  description = "Image-as-a-service URL. Some other fun ones to try are fillmurray.com, placecage.com, placebeard.it, loremflickr.com, baconmockup.com, placeimg.com."
+  description = "Image-as-a-service URL. Some other fun ones to try are placedog.net, fillmurray.com, placecage.com, placebeard.it, loremflickr.com, baconmockup.com, placeimg.com."
 }
