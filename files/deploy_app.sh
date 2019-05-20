@@ -16,3 +16,5 @@ cat << EOM > /var/www/html/index.html
   </body>
 </html>
 EOM
+
+echo "Script complete."
