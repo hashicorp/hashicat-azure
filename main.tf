@@ -129,6 +129,10 @@ resource "null_resource" "configure-cat-app" {
     "azurerm_virtual_machine.catapp",
   ]
 
+  triggers {
+    build_number = "${timestamp()}"
+  }
+
   connection {
     user     = "${var.admin_username}"
     password = "${var.admin_password}"
