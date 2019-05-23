@@ -116,8 +116,11 @@ resource "azurerm_virtual_machine" "catapp" {
 }
 
 # We're using a little trick here so we can run the provisioner without 
-# destroying the VM. Do not do this in production. This provisioner will run
-# every single time terraform runs and is *not* idempotent.
+# destroying the VM. Do not do this in production. 
+
+# If you need ongoing management (Day N) of your virtual machines a tool such
+# as Chef or Puppet is a better choice. These tools track the state of 
+# individual files and can keep them in the correct configuration.
 
 # Here we do the following steps:
 # Sync everything in files/ to the remote VM.
@@ -129,10 +132,8 @@ resource "null_resource" "configure-cat-app" {
     "azurerm_virtual_machine.catapp",
   ]
 
-  connection {
-    user     = "${var.admin_username}"
-    password = "${var.admin_password}"
-    timeout  = "3m"
+  triggers = {
+    w = "${var.width}", h = "${var.height}", u = "${var.placeholder}"
   }
 
   provisioner "file" {
