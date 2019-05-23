@@ -132,8 +132,19 @@ resource "null_resource" "configure-cat-app" {
     "azurerm_virtual_machine.catapp",
   ]
 
+<<<<<<< HEAD
   triggers = {
     w = "${var.width}", h = "${var.height}", u = "${var.placeholder}"
+=======
+  triggers {
+    build_number = "${timestamp()}"
+  }
+
+  connection {
+    user     = "${var.admin_username}"
+    password = "${var.admin_password}"
+    timeout  = "3m"
+>>>>>>> 5e2588a4bc82457fc4a48716fe2c5a18ed629449
   }
 
   provisioner "file" {
