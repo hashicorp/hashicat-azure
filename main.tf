@@ -142,12 +142,6 @@ resource "null_resource" "configure-cat-app" {
     build_number = "${timestamp()}"
   }
 
-  connection {
-    user     = "${var.admin_username}"
-    password = "${var.admin_password}"
-    timeout  = "3m"
-  }
-
   provisioner "file" {
     source      = "files/"
     destination = "/home/${var.admin_username}/"
