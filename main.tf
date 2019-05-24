@@ -132,7 +132,13 @@ resource "null_resource" "configure-cat-app" {
     "azurerm_virtual_machine.catapp",
   ]
 
-  triggers {
+  # Terraform 0.11
+  # triggers {
+  #   build_number = "${timestamp()}"
+  # }
+
+  # Terraform 0.12
+  triggers = {
     build_number = "${timestamp()}"
   }
 
