@@ -11,8 +11,8 @@ cat << EOM > /var/www/html/index.html
   <!-- BEGIN -->
   <center>
   <iframe src="//www.retrogames.cc/embed/9406-pac-man-midway.html" width="600" height="450" frameborder="no" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" scrolling="no"></iframe>
-  Welcome to the Arcade!
   </center>
+  <center><h2>Welcome to the Arcade!</h2></center>
   <!-- END -->
   
   </div>
