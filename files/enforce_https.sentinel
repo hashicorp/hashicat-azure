@@ -1,0 +1,35 @@
+import "tfplan"
+# Find all resources of a specific type
+# from all modules using the tfplan import
+find_resources_from_plan = func(type) {
+  print("type:", type)
+  resource_maps = {}
+  # Iterate over all modules in the tfplan import
+  print("module_paths:", tfplan.module_paths)
+  for tfplan.module_paths as path {
+    print("current module path:", path)
+    # Append all resources of the specified type to resource_maps
+    if length(path) > 0 and path[0] is not "" {
+      resource_maps[path] = tfplan.module(path).resources[type] else {}
+    }  
+  }
+  return resource_maps
+}
+# Get all app service resources
+resource_maps = find_resources_from_plan("azurerm_app_service")
+# Rule to restrict Azure VM sizes
+app_service_only_allows_https = rule {
+  all resource_maps as module_path, resource_map {
+    all resource_map as name, instances {
+      all instances as index, r {
+        r.applied.https_only is true or not
+        print("Azure app service", name,
+          "has attribute https_only that is not set to true.")
+      }
+    }
+  }
+}
+# Main rule that requires other rules to be true
+main = rule {
+  app_service_only_allows_https
+}
