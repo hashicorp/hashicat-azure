@@ -1,0 +1,55 @@
+@import "https://fonts.googleapis.com/css?family=Text+Me+One|Alex+Brush";
+
+body {
+  height: 100%;
+  background-image: url(./the_arcade.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+iframe {
+  width: 600px;
+  height: 450px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -300px;
+  margin-top: -175px;
+}
+
+h1 {
+  margin-top: 25px;
+  font-size: 8vw;
+  text-align: center;
+}
+h1 span {
+  position: relative;
+  display: inline-block;
+  clear: both;
+}
+h1 span:nth-child(1) {
+  font-family: "Text Me One";
+  font-weight: 300;
+  font-size: 0.4em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 0 0 20px #3082B2, 0 0 20px #3082B2, 0 0 20px #3082B2, 0 0 20px #3082B2;
+  background: #131313;
+  padding: 0 0.3em;
+  box-shadow: 0 0 10px #131313, 0 0 10px #131313, 0 0 10px #131313;
+  z-index: 2;
+}
+h1 span:nth-child(3) {
+  font-family: "Alex Brush";
+  font-weight: 300;
+  color: white;
+  text-shadow: 0 0 20px #C744A4, 0 0 20px #C744A4, 0 0 20px #C744A4;
+  -webkit-transform: skew(-5deg, -10deg);
+          transform: skew(-5deg, -10deg);
+  border: 9px double #f6e1f0;
+  border-radius: 25px;
+  box-shadow: 0 0 20px #C744A4, 0 0 20px #C744A4, inset 0 0 20px #C744A4;
+  padding: 0 0.3em;
+  top: -0.4em;
+}
