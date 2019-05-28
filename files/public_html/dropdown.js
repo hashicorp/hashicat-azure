@@ -7,7 +7,6 @@ document.write('\
       <a href="./galaga.html">Galaga</a>\
       <a href="./donkeykong.html">Donkey Kong</a>\
       <a href="./gauntlet.html">Gauntlet</a>\
-      <a href="./joust.html">Joust</a>\
       <a href="./digdug.html">Dig Dug</a>\
       <a href="./frogger.html">Frogger</a>\
       <a href="./bubblebobble.html">Bubble Bobble</a>\
