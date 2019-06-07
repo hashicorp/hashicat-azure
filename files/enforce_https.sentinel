@@ -2,16 +2,12 @@ import "tfplan"
 # Find all resources of a specific type
 # from all modules using the tfplan import
 find_resources_from_plan = func(type) {
-  print("type:", type)
   resource_maps = {}
   # Iterate over all modules in the tfplan import
   print("module_paths:", tfplan.module_paths)
   for tfplan.module_paths as path {
-    print("current module path:", path)
     # Append all resources of the specified type to resource_maps
-    if length(path) > 0 and path[0] is not "" {
-      resource_maps[path] = tfplan.module(path).resources[type] else {}
-    }  
+    resource_maps[path] = tfplan.module(path).resources[type] else {} 
   }
   return resource_maps
 }
