@@ -11,7 +11,7 @@ variable "prefix" {
 
 variable "location" {
   description = "The region where the virtual network is created."
-  default     = "centralus"
+  default     = "EastUS2"
 }
 
 variable "address_space" {
@@ -60,12 +60,12 @@ variable "admin_password" {
 }
 
 variable "height" {
-  default     = "400"
+  default     = "600"
   description = "Image height in pixels."
 }
 
 variable "width" {
-  default     = "600"
+  default     = "800"
   description = "Image width in pixels."
 }
 
