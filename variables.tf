@@ -60,16 +60,16 @@ variable "admin_password" {
 }
 
 variable "height" {
-  default     = "400"
+  default     = "500"
   description = "Image height in pixels."
 }
 
 variable "width" {
-  default     = "600"
+  default     = "700"
   description = "Image width in pixels."
 }
 
 variable "placeholder" {
-  default     = "placekitten.com"
+  default     = "placedog.net"
   description = "Image-as-a-service URL. Some other fun ones to try are fillmurray.com, placecage.com, placebeard.it, loremflickr.com, baconmockup.com, placeimg.com, placebear.com, placeskull.com, stevensegallery.com, placedog.net"
 }
