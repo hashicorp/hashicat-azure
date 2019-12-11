@@ -25,6 +25,6 @@ workflows:
   code-testing:
     jobs:
       - terraform-validate
-      - terraform-plan
+      - terraform-plan:
           requires:
             - terraform-validate
