@@ -20,6 +20,36 @@ jobs:
           command: |
             terraform init
             terraform plan
+  terraform-apply:
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: Terraform Apply
+          command: |
+            terraform init
+            # terraform apply
+            mkdir state_file
+            touch terraform.tfstate
+            cp terraform.tfstate state_file/terraform.tfstate
+            pwd
+            ls
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - state_file
+  terraform-destroy:
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: Terraform Destroy
+          command: |
+            # terraform init
+            # terraform destroy
+            echo "Destroy time"
 workflows:
   version: 2
   code-testing:
@@ -28,3 +58,9 @@ workflows:
       - terraform-plan:
           requires:
             - terraform-validate
+      - terraform-apply:
+          requires:
+            - terraform-plan
+      - terraform-destroy:
+          requires:
+            - terraform-apply
