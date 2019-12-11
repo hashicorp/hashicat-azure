@@ -36,15 +36,15 @@ jobs:
             pwd
             ls
       - persist_to_workspace:
-          root: /
+          root: ~/
           paths:
-            - /
+            - ~/
   terraform-destroy:
     docker:
       - image: hashicorp/terraform:light
     steps:
       - attach_workspace:
-          at: /
+          at: ~/
       - run:
           name: Terraform Destroy
           command: |
