@@ -10,8 +10,21 @@ jobs:
           command: |
             terraform init
             terraform validate
+  terraform-plan:
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: Terraform Validate
+          command: |
+            terraform init
+            terraform plan
 workflows:
   version: 2
   code-testing:
     jobs:
       - terraform-validate
+      - terraform-plan
+          requires:
+            - terraform-validate
