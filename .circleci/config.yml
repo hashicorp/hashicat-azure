@@ -8,6 +8,7 @@ jobs:
       - run:
           name: Terraform Validate
           command: |
+            terraform init
             terraform validate
 workflows:
   version: 2
