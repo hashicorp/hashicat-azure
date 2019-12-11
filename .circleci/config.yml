@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  terraform-validate:
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: Terraform Validate
+          command: |
+            cd /root/project/hashicat-azure/
+            terraform validate
+workflows:
+  version: 2
+  code-testing:
+    jobs:
+      - terraform-validate
