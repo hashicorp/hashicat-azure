@@ -60,7 +60,7 @@ jobs:
             terraform destroy -auto-approve
 workflows:
   version: 2
-  code-testing:
+  infrastructure-tests:
     jobs:
       - terraform-validate
       - terraform-plan:
