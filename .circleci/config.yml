@@ -36,9 +36,9 @@ jobs:
             pwd
             ls
       - persist_to_workspace:
-          root: ~/
+          root: /root
           paths:
-            - ~/
+            - project
   terraform-destroy:
     docker:
       - image: hashicorp/terraform:light
