@@ -29,12 +29,21 @@ jobs:
           name: Terraform Apply
           command: |
             terraform init
-            # terraform apply
-            mkdir state_file
-            touch terraform.tfstate
-            cp terraform.tfstate state_file/terraform.tfstate
-            pwd
-            ls
+            terraform apply -auto-approve
+      - persist_to_workspace:
+          root: /root
+          paths:
+            - project
+  run-inspec-tests:
+    docker:
+      - image: chef/inspec:latest
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Inspec Tests
+          command: |
+            inspec --version
       - persist_to_workspace:
           root: /root
           paths:
@@ -48,11 +57,7 @@ jobs:
       - run:
           name: Terraform Destroy
           command: |
-            # terraform init
-            # terraform destroy
-            echo "Destroy time"
-            pwd
-            ls
+            terraform destroy -auto-approve
 workflows:
   version: 2
   code-testing:
@@ -64,6 +69,9 @@ workflows:
       - terraform-apply:
           requires:
             - terraform-plan
-      - terraform-destroy:
+      - run-inspec-tests:
           requires:
             - terraform-apply
+      - terraform-destroy:
+          requires:
+            - run-inspec-tests
