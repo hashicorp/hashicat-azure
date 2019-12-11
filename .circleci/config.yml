@@ -36,20 +36,23 @@ jobs:
             pwd
             ls
       - persist_to_workspace:
-          root: workspace
+          root: /
           paths:
-            - state_file
+            - /
   terraform-destroy:
     docker:
       - image: hashicorp/terraform:light
     steps:
-      - checkout
+      - attach_workspace:
+          at: /
       - run:
           name: Terraform Destroy
           command: |
             # terraform init
             # terraform destroy
             echo "Destroy time"
+            pwd
+            ls
 workflows:
   version: 2
   code-testing:
