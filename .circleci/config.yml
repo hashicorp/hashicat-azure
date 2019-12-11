@@ -8,6 +8,8 @@ jobs:
       - run:
           name: Terraform Validate
           command: |
+            pwd
+            ls
             cd /root/project/hashicat-azure/
             terraform validate
 workflows:
