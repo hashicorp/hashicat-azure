@@ -129,7 +129,7 @@ resource "azurerm_virtual_machine" "catapp" {
 # Run the deploy_app.sh script.
 resource "null_resource" "configure-cat-app" {
   depends_on = [
-    "azurerm_virtual_machine.catapp",
+    azurerm_virtual_machine.catapp,
   ]
 
   # Terraform 0.11
