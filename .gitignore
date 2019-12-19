@@ -7,3 +7,7 @@
 
 # .tfvars files
 *.tfvars
+
+# terraformrc file
+.terraformrc
+terraform.rc
