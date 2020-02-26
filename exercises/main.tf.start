@@ -1,3 +1,7 @@
+provider "azurerm" {
+  version = "=1.44.0"
+}
+
 resource "azurerm_resource_group" "myresourcegroup" {
   name     = "${var.prefix}-workshop"
   location = var.location
