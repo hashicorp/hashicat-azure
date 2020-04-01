@@ -1,13 +1,4 @@
-# If you are in a workshop...
-# Do not delete this file!
-# It's required to complete the Instruqt labs.
-
-terraform {
-  backend "remote" {
-    hostname = "app.terraform.io"
-    organization = "rendel"
-    workspaces {
-      name = "hashicat-azure"
-    }
-  }
+module "network" {
+  source  = "app.terraform.io/rendel/network/azurerm"
+  version = "3.0.1"
 }
