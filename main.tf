@@ -5,6 +5,7 @@ provider "azurerm" {
 resource "azurerm_resource_group" "myresourcegroup" {
   name     = "${var.prefix}-workshop"
   location = var.location
+  
   tags = {
     environment = "Production"
   }
