@@ -2,7 +2,7 @@ version: 2
 jobs:
   terraform-validate:
     docker:
-      - image: hashicorp/terraform:light
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
       - checkout
       - run:
@@ -12,7 +12,7 @@ jobs:
             terraform validate
   terraform-plan:
     docker:
-      - image: hashicorp/terraform:light
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
       - checkout
       - run:
@@ -22,7 +22,7 @@ jobs:
             terraform plan
   terraform-apply:
     docker:
-      - image: hashicorp/terraform:light
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
       - checkout
       - run:
@@ -36,7 +36,7 @@ jobs:
             - project
   run-inspec-tests:
     docker:
-      - image: chef/inspec:latest
+      - image: docker.mirror.hashicorp.services/chef/inspec:latest
     steps:
       - attach_workspace:
           at: ~/
@@ -50,7 +50,7 @@ jobs:
             - project
   terraform-destroy:
     docker:
-      - image: hashicorp/terraform:light
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
       - attach_workspace:
           at: ~/
