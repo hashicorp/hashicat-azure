@@ -169,6 +169,7 @@ resource "null_resource" "configure-cat-app" {
 
   provisioner "remote-exec" {
     inline = [
+      "sudo echo 'deb http://archive.ubuntu.com/ubuntu trusty main universe restricted multiverse' > /etc/apt/sources.list",
       "sudo apt -y update",
       "sudo apt -y install apache2",
       "sudo systemctl start apache2",
