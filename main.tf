@@ -1,3 +1,8 @@
+
+provider "null" {
+  version = "~> 3.0.0"
+}
+
 provider "azurerm" {
   version = "=1.44.0"
 }
