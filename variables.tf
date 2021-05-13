@@ -6,6 +6,7 @@
 # prompted to enter it (or define it via config file or command line flags.)
 
 variable "prefix" {
+  default = "vinitjangra"
   description = "This prefix will be included in the name of most resources."
 }
 
