@@ -3,7 +3,7 @@
     "type":"vars",
     "attributes": {
       "key":"height",
-      "value":"REPLACE_ME",
+      "value":"",
       "category":"terraform",
       "hcl":false,
       "sensitive":false

@@ -2,8 +2,8 @@
   "data": {
     "type":"vars",
     "attributes": {
-      "key":"https://github.com/chuck-ott-test/hashicat-azure/blob/master/files/public_html/",
-      "value":"the_arcade.jpg",
+      "key":"",
+      "value":"",
       "category":"terraform",
       "hcl":false,
       "sensitive":false
