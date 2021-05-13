@@ -10,4 +10,4 @@ terraform {
       name = "hashicat-azure"
     }
   }
-}
+} 
