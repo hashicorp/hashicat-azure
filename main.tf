@@ -123,7 +123,8 @@ resource "azurerm_virtual_machine" "catapp" {
   }
 
   tags = {
-    department = "devops"}
+    department = "devops"
+    Billing = "True"}
 }
 
 # We're using a little trick here so we can run the provisioner without
