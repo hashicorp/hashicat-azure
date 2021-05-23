@@ -136,6 +136,9 @@ resource "azurerm_virtual_machine" "catapp" {
   }
 
   tags = {}
+
+  # Added to allow destroy to work correctly.
+  depends_on = [azurerm_network_interface_security_group_association.catapp-nic-sg-ass]
 }
 
 # We're using a little trick here so we can run the provisioner without

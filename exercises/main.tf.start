@@ -130,6 +130,11 @@ resource "azurerm_resource_group" "myresourcegroup" {
 #   os_profile_linux_config {
 #     disable_password_authentication = false
 #   }
+
+#   tags {}
+
+#   # Added to allow destroy to work correctly.
+#   depends_on = [azurerm_network_interface_security_group_association.catapp-nic-sg-ass]
 # }
 
 # # We're using a little trick here so we can run the provisioner without
