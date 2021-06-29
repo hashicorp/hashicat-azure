@@ -7,6 +7,7 @@
 
 variable "prefix" {
   description = "This prefix will be included in the name of most resources."
+  default = "eugenelipsky"
 }
 
 variable "location" {
@@ -72,4 +73,25 @@ variable "width" {
 variable "placeholder" {
   default     = "placekitten.com"
   description = "Image-as-a-service URL. Some other fun ones to try are fillmurray.com, placecage.com, placebeard.it, loremflickr.com, baconmockup.com, placeimg.com, placebear.com, placeskull.com, stevensegallery.com, placedog.net"
+}
+
+variable "ARM_SUBSCRIPTION_ID" {
+  default     = "df404023-d287-414b-92e8-5faa917f1413"
+  description = "sub id"
+}
+
+variable "ARM_TENANT_ID" {
+  default     = "ab2e4aa2-3855-48b9-8d02-619cee6d9513"
+  description = "tenant id"
+}
+
+variable "ARM_CLIENT_SECRET" {
+  default     = "pzlJSMz7i-o+W6or"
+  description = "client secret"
+  sensitive = "true"
+}
+
+variable "ARM_CLIENT_ID" {
+  default     = "8f74bc7f-7292-4323-8b7b-638138edcd97"
+  description = "client id"
 }
