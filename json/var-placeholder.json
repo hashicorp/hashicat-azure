@@ -1,0 +1,20 @@
+{
+  "data": {
+    "type":"vars",
+    "attributes": {
+      "key":"placeholder",
+      "value":"http://placekitten.com/408/287",
+      "category":"terraform",
+      "hcl":false,
+      "sensitive":false
+    },
+    "relationships": {
+      "workspace": {
+        "data": {
+          "id":"ws-ayrfsmCmkaMzs7N3",
+          "type":"workspaces"
+        }
+      }
+    }
+  }
+}
