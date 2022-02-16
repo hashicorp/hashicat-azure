@@ -1,12 +1,3 @@
-provider "azurerm" {
-  features {}
-}
-
-resource "azurerm_resource_group" "gaurav" {
-  name     = "my-resources"
-  location = "West Europe"
-}
-
 module "network" {
   source  = "app.terraform.io/TestPGOrg01/network/azurerm"
   version = "3.5.0"
@@ -19,11 +10,3 @@ module "network" {
     "subnet2" : ["Microsoft.Sql"],
     "subnet3" : ["Microsoft.Sql"]
   }
-
-  tags = {
-    environment = "dev"
-    costcenter  = "it"
-  }
-
-  depends_on = [azurerm_resource_group.example]
-}
