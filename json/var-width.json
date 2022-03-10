@@ -1,0 +1,12 @@
+{
+  "data": {
+    "type":"vars",
+    "attributes": {
+      "key":"width",
+      "value":"800",
+      "category":"terraform",
+      "hcl":false,
+      "sensitive":false
+    }
+  }
+}
