@@ -137,7 +137,9 @@ resource "azurerm_virtual_machine" "catapp" {
     disable_password_authentication = false
   }
 
-  tags = {}
+  tags = {
+    department="devops"
+  }
 
   # Added to allow destroy to work correctly.
   depends_on = [azurerm_network_interface_security_group_association.catapp-nic-sg-ass]
