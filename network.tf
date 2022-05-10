@@ -5,4 +5,3 @@ module "network" {
   # insert required variables here
   resource_group_name = "rg-train-ralph"
 }
-
