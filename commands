@@ -1,0 +1,13 @@
+git remote remove origin
+git remote add origin https://github.com/freakling/hashicat-azure
+
+git pull
+git branch --set-upstream-to=origin/master master
+git config --global core.editor "vi"
+
+git config --global user.email "freakling@gmail.com"
+git config --global user.name "Freakling"
+
+ssh-keygen -t rsa -m PEM -f "/Users/<NAME>/.ssh/service_terraform" -C "service_terraform_enterprise"
+
+
