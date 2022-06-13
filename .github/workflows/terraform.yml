@@ -3,7 +3,7 @@ name: "Terraform"
 on:
   push:
     branches:
-      - origin
+      - branch002
   pull_request:
 
 jobs:
