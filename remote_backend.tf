@@ -1,7 +1,7 @@
 terraform {
   backend "remote" {
     hostname = "app.terraform.io"
-    organization = "william-trial-001"
+    organization = "William-Hashicorp"
     workspaces {
       name = "hashicat-azure"
     }
