@@ -12,6 +12,7 @@ cat << EOM > /var/www/html/index.html
   <center><img src="http://${PLACEHOLDER}/${WIDTH}/${HEIGHT}"></img></center>
   <center><h2>Meow World!</h2></center>
   Welcome to ${PREFIX}'s app. A place where it feels good deployment all the things the DevOps way ! 
+  Y'all better reserve them spaces ! 
   <!-- END -->
   
   </div>
