@@ -11,7 +11,7 @@ cat << EOM > /var/www/html/index.html
   <!-- BEGIN -->
   <center><img src="http://${PLACEHOLDER}/${WIDTH}/${HEIGHT}"></img></center>
   <center><h2>Meow World!</h2></center>
-  Welcome to ${PREFIX}'s app. Replace this text with your own. 
+  Welcome to ${PREFIX}'s app. No coyotes were made to fall into canyons/crushed under huge boulders/propelled into false tunnels made by painting a hole in a cliffside while wearing rocket-propelled roller skates/harmed in the making of these products!
   <!-- END -->
   
   </div>
