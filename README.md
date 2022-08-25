@@ -5,4 +5,4 @@ Includes the "Meow World" website. 😻
 
 [![CircleCI](https://circleci.com/gh/hashicorp/hashicat-azure.svg?style=svg)](https://circleci.com/gh/hashicorp/hashicat-azure)
 
-Adding a small code change
+just Adding a small code change
