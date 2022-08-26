@@ -1,0 +1,11 @@
+1NqE2UjO05fMrA.atlasv1.QjRDyhFKHD6V2OZKEf3VfvLxp38WrjbZN8TuI5VJA4qxsE2UDyyuH7wfk09tUVktH4c
+
+export ARM_SUBSCRIPTION_ID="0e29c7bd-c1d7-4a8a-9309-47b63577f470"
+export ARM_TENANT_ID="ab2e4aa2-3855-48b9-8d02-619cee6d9513"
+export ARM_CLIENT_ID="8ece24b0-09fa-4ece-809a-fe5485b202ed"
+export ARM_CLIENT_SECRET="+AF+^LPZ%wxptmWF"
+
+prefix=igorm
+location=
+
+https://play.instruqt.com/hashicorp/tracks/terraform-cloud-azure/challenges/protecting-sensitive-variables/assignment
