@@ -7,12 +7,12 @@
 
 variable "prefix" {
   description = "This prefix will be included in the name of most resources."
-  default     = "sam-hashicat-demo"
+  default     = "sam-hashicat"
 }
 
 variable "location" {
   description = "The region where the virtual network is created."
-  default     = "centralus"
+  default     = "Australia Southeast"
 }
 
 variable "address_space" {
