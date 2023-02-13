@@ -2,13 +2,17 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=2.60.0"
+      version = ">=3.41.0"
     }
   }
 }
 
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 }
 
 resource "azurerm_resource_group" "myresourcegroup" {
@@ -77,9 +81,9 @@ resource "azurerm_network_security_group" "catapp-sg" {
 }
 
 resource "azurerm_network_interface" "catapp-nic" {
-  name                      = "${var.prefix}-catapp-nic"
-  location                  = var.location
-  resource_group_name       = azurerm_resource_group.myresourcegroup.name
+  name                = "${var.prefix}-catapp-nic"
+  location            = azurerm_resource_group.myresourcegroup.location
+  resource_group_name = azurerm_resource_group.myresourcegroup.name
 
   ip_configuration {
     name                          = "${var.prefix}ipconfig"
@@ -96,43 +100,34 @@ resource "azurerm_network_interface_security_group_association" "catapp-nic-sg-a
 
 resource "azurerm_public_ip" "catapp-pip" {
   name                = "${var.prefix}-ip"
-  location            = var.location
+  location            = azurerm_resource_group.myresourcegroup.location
   resource_group_name = azurerm_resource_group.myresourcegroup.name
   allocation_method   = "Dynamic"
   domain_name_label   = "${var.prefix}-meow"
 }
 
-resource "azurerm_virtual_machine" "catapp" {
-  name                = "${var.prefix}-meow"
-  location            = var.location
-  resource_group_name = azurerm_resource_group.myresourcegroup.name
-  vm_size             = var.vm_size
+resource "azurerm_linux_virtual_machine" "catapp" {
+  name                            = "${var.prefix}-meow"
+  location                        = azurerm_resource_group.myresourcegroup.location
+  resource_group_name             = azurerm_resource_group.myresourcegroup.name
+  size                            = var.vm_size
+  admin_username                  = var.admin_username
+  admin_password                  = var.admin_password
+  disable_password_authentication = false
+  network_interface_ids           = [azurerm_network_interface.catapp-nic.id]
 
-  network_interface_ids         = [azurerm_network_interface.catapp-nic.id]
-  delete_os_disk_on_termination = "true"
-
-  storage_image_reference {
+  source_image_reference {
     publisher = var.image_publisher
     offer     = var.image_offer
     sku       = var.image_sku
     version   = var.image_version
   }
 
-  storage_os_disk {
-    name              = "${var.prefix}-osdisk"
-    managed_disk_type = "Standard_LRS"
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-  }
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+    disk_size_gb         = "60"
 
-  os_profile {
-    computer_name  = var.prefix
-    admin_username = var.admin_username
-    admin_password = var.admin_password
-  }
-
-  os_profile_linux_config {
-    disable_password_authentication = false
   }
 
   tags = {}
@@ -155,7 +150,7 @@ resource "azurerm_virtual_machine" "catapp" {
 # Run the deploy_app.sh script.
 resource "null_resource" "configure-cat-app" {
   depends_on = [
-    azurerm_virtual_machine.catapp,
+    azurerm_linux_virtual_machine.catapp,
   ]
 
   # Terraform 0.11
