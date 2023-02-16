@@ -131,7 +131,7 @@ resource "azurerm_linux_virtual_machine" "catapp" {
   }
 
   tags = {
-    Department - "DevOps"
+    Department = "DevOps"
     Billalbe = "true"
   }
 
