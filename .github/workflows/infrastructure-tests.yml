@@ -109,12 +109,6 @@ jobs:
         with:
           name: "tf-code"
           path: "~/"
-      # Either upload or download-artifact does not preserve the exec bit on
-      # binaries, so fix that here
-      - name: fix-perms
-        run: |-
-          # e.g. .terraform/providers/registry.terraform.io/hashicorp/null/3.2.1/linux_amd64/terraform-provider-null_v3.2.1_x5
-          chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
       - name: Inspec Tests
         run: inspec --version
       - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
