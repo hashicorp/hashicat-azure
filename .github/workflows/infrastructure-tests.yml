@@ -1,0 +1,76 @@
+name: hashicorp/hashicat-azure/infrastructure-tests
+on:
+  push:
+    branches:
+    - master
+env:
+  ARM_CLIENT_ID: xxxxxxx
+  ARM_CLIENT_SECRET: xxxxxxx
+  ARM_SUBSCRIPTION_ID: xxxxxxx
+  ARM_TENANT_ID: xxxxxxx
+  TF_VAR_prefix: xxxxxxx
+jobs:
+  terraform-validate:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    steps:
+    - uses: actions/checkout@v3.5.0
+    - name: Terraform Validate
+      run: |-
+        terraform init
+        terraform validate
+  terraform-plan:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    needs:
+    - terraform-validate
+    steps:
+    - uses: actions/checkout@v3.5.0
+    - name: Terraform Validate
+      run: |-
+        terraform init
+        terraform plan
+  terraform-apply:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    needs:
+    - terraform-plan
+    steps:
+    - uses: actions/checkout@v3.5.0
+    - name: Terraform Apply
+      run: |-
+        terraform init
+        terraform apply -auto-approve
+    - uses: actions/upload-artifact@v3.1.1
+      with:
+        path: "/root/project"
+  run-inspec-tests:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.mirror.hashicorp.services/chef/inspec:latest
+    needs:
+    - terraform-apply
+    steps:
+    - uses: actions/download-artifact@v3.0.1
+      with:
+        path: "~/"
+    - name: Inspec Tests
+      run: inspec --version
+    - uses: actions/upload-artifact@v3.1.1
+      with:
+        path: "/root/project"
+  terraform-destroy:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    needs:
+    - run-inspec-tests
+    steps:
+    - uses: actions/download-artifact@v3.0.1
+      with:
+        path: "~/"
+    - name: Terraform Destroy
+      run: terraform destroy -auto-approve
