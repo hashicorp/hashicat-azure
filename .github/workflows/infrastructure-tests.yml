@@ -1,25 +1,45 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
 name: hashicorp/hashicat-azure/infrastructure-tests
 on:
+  workflow_dispatch:
   push:
     branches:
-      - master
+      - 'master'
 env:
-  ARM_CLIENT_ID: xxxxxxx
-  ARM_CLIENT_SECRET: xxxxxxx
-  ARM_SUBSCRIPTION_ID: xxxxxxx
-  ARM_TENANT_ID: xxxxxxx
-  TF_VAR_prefix: xxxxxxx
+  # See IL-574 for the source of these
+  ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+  TF_VAR_prefix: gha-infrastructure-tests-${{ github.run_id }}-${{ github.run_number }}
+permissions: {}
 jobs:
+  terraform-init:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - name: Terraform Init
+        run: terraform init
+      - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        with:
+          path: ${{ github.workspace }}
   terraform-validate:
     runs-on: ubuntu-latest
     container:
       image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    needs:
+      - terraform-init
     steps:
-      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+        with:
+          path: ${{ github.workspace }}
       - name: Terraform Validate
-        run: |-
-          terraform init
-          terraform validate
+        run: terraform validate
   terraform-plan:
     runs-on: ubuntu-latest
     container:
@@ -27,11 +47,14 @@ jobs:
     needs:
       - terraform-validate
     steps:
-      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
-      - name: Terraform Validate
-        run: |-
-          terraform init
-          terraform plan
+      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+        with:
+          path: ${{ github.workspace }}
+      - name: Terraform Plan
+        run: terraform plan -out=gha-infrastructure-tests-${{ github.run_id }}-${{ github.run_number }}.plan
+      - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        with:
+          path: ${{ github.workspace }}
   terraform-apply:
     runs-on: ubuntu-latest
     container:
@@ -39,11 +62,11 @@ jobs:
     needs:
       - terraform-plan
     steps:
-      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+        with:
+          path: ${{ github.workspace }}
       - name: Terraform Apply
-        run: |-
-          terraform init
-          terraform apply -auto-approve
+        run: terraform apply -auto-approve gha-infrastructure-tests-${{ github.run_id }}-${{ github.run_number }}.plan
       - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           path: "/root/project"
@@ -74,5 +97,3 @@ jobs:
           path: "~/"
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
-permissions:
-  contents: read
