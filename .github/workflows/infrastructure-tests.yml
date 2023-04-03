@@ -43,7 +43,7 @@ jobs:
       - name: looking
         run: |-
           pwd
-          ls -lR
+          ls -alR
       - name: Terraform Validate
         run: terraform validate
   terraform-plan:
