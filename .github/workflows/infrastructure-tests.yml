@@ -46,10 +46,6 @@ jobs:
         run: |-
           # e.g. .terraform/providers/registry.terraform.io/hashicorp/null/3.2.1/linux_amd64/terraform-provider-null_v3.2.1_x5
           chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
-      - name: looking
-        run: |-
-          pwd
-          ls -alR
       - name: Terraform Validate
         run: terraform validate
   terraform-plan:
