@@ -27,6 +27,7 @@ jobs:
         run: terraform init
       - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
+          name: "tf-code"
           path: ${{ github.workspace }}
   terraform-validate:
     runs-on: ubuntu-latest
@@ -37,7 +38,12 @@ jobs:
     steps:
       - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
+          name: "tf-code"
           path: ${{ github.workspace }}
+      - name: looking
+        run: |-
+          pwd
+          ls -lR
       - name: Terraform Validate
         run: terraform validate
   terraform-plan:
@@ -49,11 +55,13 @@ jobs:
     steps:
       - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
+          name: "tf-code"
           path: ${{ github.workspace }}
       - name: Terraform Plan
         run: terraform plan -out=gha-infrastructure-tests-${{ github.run_id }}-${{ github.run_number }}.plan
       - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
+          name: "tf-code"
           path: ${{ github.workspace }}
   terraform-apply:
     runs-on: ubuntu-latest
@@ -64,11 +72,13 @@ jobs:
     steps:
       - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
+          name: "tf-code"
           path: ${{ github.workspace }}
       - name: Terraform Apply
         run: terraform apply -auto-approve gha-infrastructure-tests-${{ github.run_id }}-${{ github.run_number }}.plan
       - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
+          name: "tf-code"
           path: "/root/project"
   run-inspec-tests:
     runs-on: ubuntu-latest
@@ -79,11 +89,13 @@ jobs:
     steps:
       - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
+          name: "tf-code"
           path: "~/"
       - name: Inspec Tests
         run: inspec --version
       - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
+          name: "tf-code"
           path: "/root/project"
   terraform-destroy:
     runs-on: ubuntu-latest
@@ -94,6 +106,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
+          name: "tf-code"
           path: "~/"
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
