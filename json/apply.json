@@ -1,0 +1,22 @@
+{
+  "data": {
+    "attributes": {
+      "is-destroy":false,
+      "message": "Terraform Cloud API is Magic! 🦄 🌈 🧙‍♂️",
+      "variables": [
+      { "key": "height", "value": "600" },
+      { "key": "placeholder", "value": "picsum.photos" },
+      { "key": "width", "value": "600" }
+      ]
+    },
+    "type":"runs",
+    "relationships": {
+      "workspace": {
+        "data": {
+          "type": "workspaces",
+          "id": "ws-cBMjk82n5RiRfiC6"
+        }
+      }
+    }
+  }
+}
