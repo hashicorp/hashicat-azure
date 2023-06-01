@@ -3,4 +3,4 @@
 # Make sure it is at least 5 characters long.
 
 prefix = "sreenathpremnadh123"
-location = "germany-west-central"
+location = "germanywestcentral"
