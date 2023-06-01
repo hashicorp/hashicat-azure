@@ -27,11 +27,21 @@ resource "azurerm_resource_group" "myresourcegroup" {
   }
 }
 
-resource "azurerm_virtual_network" "vnet" {
-  name                = "${var.prefix}-vnet"
-  location            = azurerm_resource_group.myresourcegroup.location
-  address_space       = [var.address_space]
+#resource "azurerm_virtual_network" "vnet" {
+#  name                = "${var.prefix}-vnet"
+#  location            = azurerm_resource_group.myresourcegroup.location
+#  address_space       = [var.address_space]
+#  resource_group_name = azurerm_resource_group.myresourcegroup.name
+#}
+
+module "network" {
+  source  = "app.terraform.io/sreeprem-org/network/azurerm"
+  version = "5.2.0"
+  
   resource_group_name = azurerm_resource_group.myresourcegroup.name
+  vnet_name = "${var.prefix}-vnet"
+  resource_group_location = azurerm_resource_group.myresourcegroup.location
+  address_spaces = [var.address_space]
 }
 
 resource "azurerm_subnet" "subnet" {
