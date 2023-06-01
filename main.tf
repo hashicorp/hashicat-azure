@@ -42,6 +42,7 @@ module "network" {
   vnet_name = "${var.prefix}-vnet"
   resource_group_location = azurerm_resource_group.myresourcegroup.location
   address_spaces = [var.address_space]
+  use_for_each = true
 }
 
 resource "azurerm_subnet" "subnet" {
