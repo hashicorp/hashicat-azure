@@ -6,8 +6,10 @@
 *.tfstate.*
 
 # .tfvars files
-*.tfvars
+# *.tfvars
 
 # terraformrc file
 .terraformrc
 terraform.rc
+
+.terraform.lock.hcl

@@ -3,3 +3,4 @@
 # Make sure it is at least 5 characters long.
 
 prefix = "sreenath"
+location = "uksouth"
