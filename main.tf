@@ -18,13 +18,8 @@ provider "azurerm" {
   }
 }
 
-resource "azurerm_resource_group" "myresourcegroup" {
-  name     = "${var.prefix}-workshop"
-  location = var.location
-
-  tags = {
-    environment = "Production"
-  }
+data "azurerm_resource_group" "myresourcegroup" {
+  name     = var.resourcegroup
 }
 
 resource "azurerm_virtual_network" "vnet" {
