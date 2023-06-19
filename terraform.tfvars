@@ -4,4 +4,4 @@
 
 prefix = "sreenathpremnadh123"
 location = "uksouth"
-placeholder = "placekitten.com"
+placeholder = "placebear.com"
