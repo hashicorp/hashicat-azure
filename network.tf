@@ -3,5 +3,5 @@ module "network" {
   version = "3.5.0"
   resource_group_name = afristore
  
- # insert required variables here
+ # insert required variables :
 }
