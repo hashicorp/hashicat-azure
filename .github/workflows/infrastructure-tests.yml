@@ -63,7 +63,7 @@ jobs:
           # value that TF would use
           location=$(echo "var.location" | terraform console | sed 's/^"//' | sed 's/"$//')
           az login --service-principal -u "${ARM_CLIENT_ID}" -p "${ARM_CLIENT_SECRET}" --tenant "${ARM_TENANT_ID}"
-          az vm list-skus --location "${location}" --zone --output table
+          az vm list-skus --location "${location}" --subscription "${ARM_SUBSCRIPTION_ID}" --zone --output table
   terraform-validate:
     runs-on: ubuntu-latest
     container:
