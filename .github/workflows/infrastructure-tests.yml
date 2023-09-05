@@ -48,12 +48,13 @@ jobs:
           # e.g. .terraform/providers/registry.terraform.io/hashicorp/null/3.2.1/linux_amd64/terraform-provider-null_v3.2.1_x5
           chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
       - name: set TF vars if set
+        # GH upcases variable names, that's why this looks odd....
         run: |-
-          if [ -n "${{ vars.TF_VAR_location }}" ]; then
-          echo "TF_VAR_location=${{ vars.TF_VAR_location}}" >> "${GITHUB_ENV}"
+          if [ -n "${{ vars.TF_VAR_LOCATION }}" ]; then
+          echo "TF_VAR_location=${{ vars.TF_VAR_LOCATION }}" >> "${GITHUB_ENV}"
           fi
-          if [ -n "${{ vars.TF_VAR_vm_size }}" ]; then
-          echo "TF_VAR_vm_size=${{ vars.TF_VAR_vm_size}}" >> "${GITHUB_ENV}"
+          if [ -n "${{ vars.TF_VAR_VM_SIZE }}" ]; then
+          echo "TF_VAR_vm_size=${{ vars.TF_VAR_VM_SIZE }}" >> "${GITHUB_ENV}"
           fi
       - name: check VMs
         run: |-
@@ -100,12 +101,13 @@ jobs:
           # e.g. .terraform/providers/registry.terraform.io/hashicorp/null/3.2.1/linux_amd64/terraform-provider-null_v3.2.1_x5
           chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
       - name: set TF vars if set
+        # GH upcases variable names, that's why this looks odd....
         run: |-
-          if [ -n "${{ vars.TF_VAR_location }}" ]; then
-          echo "TF_VAR_location=${{ vars.TF_VAR_location}}" >> "${GITHUB_ENV}"
+          if [ -n "${{ vars.TF_VAR_LOCATION }}" ]; then
+          echo "TF_VAR_location=${{ vars.TF_VAR_LOCATION }}" >> "${GITHUB_ENV}"
           fi
-          if [ -n "${{ vars.TF_VAR_vm_size }}" ]; then
-          echo "TF_VAR_vm_size=${{ vars.TF_VAR_vm_size}}" >> "${GITHUB_ENV}"
+          if [ -n "${{ vars.TF_VAR_VM_SIZE }}" ]; then
+          echo "TF_VAR_vm_size=${{ vars.TF_VAR_VM_SIZE }}" >> "${GITHUB_ENV}"
           fi
       - name: Terraform Plan
         run: terraform plan -out=gha-infrastructure-tests-${{ github.run_id }}-${{ github.run_number }}.plan
@@ -131,12 +133,13 @@ jobs:
           # e.g. .terraform/providers/registry.terraform.io/hashicorp/null/3.2.1/linux_amd64/terraform-provider-null_v3.2.1_x5
           chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
       - name: set TF vars if set
+        # GH upcases variable names, that's why this looks odd....
         run: |-
-          if [ -n "${{ vars.TF_VAR_location }}" ]; then
-          echo "TF_VAR_location=${{ vars.TF_VAR_location}}" >> "${GITHUB_ENV}"
+          if [ -n "${{ vars.TF_VAR_LOCATION }}" ]; then
+          echo "TF_VAR_location=${{ vars.TF_VAR_LOCATION }}" >> "${GITHUB_ENV}"
           fi
-          if [ -n "${{ vars.TF_VAR_vm_size }}" ]; then
-          echo "TF_VAR_vm_size=${{ vars.TF_VAR_vm_size}}" >> "${GITHUB_ENV}"
+          if [ -n "${{ vars.TF_VAR_VM_SIZE }}" ]; then
+          echo "TF_VAR_vm_size=${{ vars.TF_VAR_VM_SIZE }}" >> "${GITHUB_ENV}"
           fi
       - name: Terraform Apply
         run: terraform apply -auto-approve gha-infrastructure-tests-${{ github.run_id }}-${{ github.run_number }}.plan
@@ -162,12 +165,13 @@ jobs:
           # e.g. .terraform/providers/registry.terraform.io/hashicorp/null/3.2.1/linux_amd64/terraform-provider-null_v3.2.1_x5
           chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
       - name: set TF vars if set
+        # GH upcases variable names, that's why this looks odd....
         run: |-
-          if [ -n "${{ vars.TF_VAR_location }}" ]; then
-          echo "TF_VAR_location=${{ vars.TF_VAR_location}}" >> "${GITHUB_ENV}"
+          if [ -n "${{ vars.TF_VAR_LOCATION }}" ]; then
+          echo "TF_VAR_location=${{ vars.TF_VAR_LOCATION }}" >> "${GITHUB_ENV}"
           fi
-          if [ -n "${{ vars.TF_VAR_vm_size }}" ]; then
-          echo "TF_VAR_vm_size=${{ vars.TF_VAR_vm_size}}" >> "${GITHUB_ENV}"
+          if [ -n "${{ vars.TF_VAR_VM_SIZE }}" ]; then
+          echo "TF_VAR_vm_size=${{ vars.TF_VAR_VM_SIZE }}" >> "${GITHUB_ENV}"
           fi
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
