@@ -29,6 +29,39 @@ jobs:
         with:
           name: "tf-code"
           path: ${{ github.workspace }}
+  azurerm-vms-available:
+    # We do this to aid things like IL-878, where Azure tells us we have no
+    # VMs of a certain size; this runs to show you what *was* available at
+    # the time
+    runs-on: ubuntu-latest
+    needs:
+      - terraform-init
+    steps:
+      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
+        with:
+          name: "tf-code"
+          path: ${{ github.workspace }}
+      # Either upload or download-artifact does not preserve the exec bit on
+      # binaries, so fix that here
+      - name: fix-perms
+        run: |-
+          # e.g. .terraform/providers/registry.terraform.io/hashicorp/null/3.2.1/linux_amd64/terraform-provider-null_v3.2.1_x5
+          chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
+      - name: set TF vars if set
+        run: |-
+          if [ -n ${{ vars.TF_VAR_location }} ]; then
+          echo "TF_VAR_location=${{ vars.TF_VAR_location}}" >> "${GITHUB_ENV}"
+          fi
+          if [ -n ${{ vars.TF_VAR_vm_size }} ]; then
+          echo "TF_VAR_vm_size=${{ vars.TF_VAR_vm_size}}" >> "${GITHUB_ENV}"
+          fi
+      - name: check VMs
+        run: |-
+          # Whether we're using the defaults in the varables.tf file, or have overriden
+          # them with environment variables, 'terraform console' will tell us the current
+          # value that TF would use
+          location=$(echo "var.location" | terraform console | sed 's/^"//' | sed 's/"$//')
+          az vm list-skus --location "${location}" --zone --output table
   terraform-validate:
     runs-on: ubuntu-latest
     container:
@@ -65,6 +98,14 @@ jobs:
         run: |-
           # e.g. .terraform/providers/registry.terraform.io/hashicorp/null/3.2.1/linux_amd64/terraform-provider-null_v3.2.1_x5
           chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
+      - name: set TF vars if set
+        run: |-
+          if [ -n ${{ vars.TF_VAR_location }} ]; then
+          echo "TF_VAR_location=${{ vars.TF_VAR_location}}" >> "${GITHUB_ENV}"
+          fi
+          if [ -n ${{ vars.TF_VAR_vm_size }} ]; then
+          echo "TF_VAR_vm_size=${{ vars.TF_VAR_vm_size}}" >> "${GITHUB_ENV}"
+          fi
       - name: Terraform Plan
         run: terraform plan -out=gha-infrastructure-tests-${{ github.run_id }}-${{ github.run_number }}.plan
       - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
@@ -88,6 +129,14 @@ jobs:
         run: |-
           # e.g. .terraform/providers/registry.terraform.io/hashicorp/null/3.2.1/linux_amd64/terraform-provider-null_v3.2.1_x5
           chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
+      - name: set TF vars if set
+        run: |-
+          if [ -n ${{ vars.TF_VAR_location }} ]; then
+          echo "TF_VAR_location=${{ vars.TF_VAR_location}}" >> "${GITHUB_ENV}"
+          fi
+          if [ -n ${{ vars.TF_VAR_vm_size }} ]; then
+          echo "TF_VAR_vm_size=${{ vars.TF_VAR_vm_size}}" >> "${GITHUB_ENV}"
+          fi
       - name: Terraform Apply
         run: terraform apply -auto-approve gha-infrastructure-tests-${{ github.run_id }}-${{ github.run_number }}.plan
       - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
@@ -111,5 +160,13 @@ jobs:
         run: |-
           # e.g. .terraform/providers/registry.terraform.io/hashicorp/null/3.2.1/linux_amd64/terraform-provider-null_v3.2.1_x5
           chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
+      - name: set TF vars if set
+        run: |-
+          if [ -n ${{ vars.TF_VAR_location }} ]; then
+          echo "TF_VAR_location=${{ vars.TF_VAR_location}}" >> "${GITHUB_ENV}"
+          fi
+          if [ -n ${{ vars.TF_VAR_vm_size }} ]; then
+          echo "TF_VAR_vm_size=${{ vars.TF_VAR_vm_size}}" >> "${GITHUB_ENV}"
+          fi
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
