@@ -49,10 +49,10 @@ jobs:
           chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
       - name: set TF vars if set
         run: |-
-          if [ -n ${{ vars.TF_VAR_location }} ]; then
+          if [ -n "${{ vars.TF_VAR_location }}" ]; then
           echo "TF_VAR_location=${{ vars.TF_VAR_location}}" >> "${GITHUB_ENV}"
           fi
-          if [ -n ${{ vars.TF_VAR_vm_size }} ]; then
+          if [ -n "${{ vars.TF_VAR_vm_size }}" ]; then
           echo "TF_VAR_vm_size=${{ vars.TF_VAR_vm_size}}" >> "${GITHUB_ENV}"
           fi
       - name: check VMs
@@ -61,6 +61,7 @@ jobs:
           # them with environment variables, 'terraform console' will tell us the current
           # value that TF would use
           location=$(echo "var.location" | terraform console | sed 's/^"//' | sed 's/"$//')
+          az login --service-principal -u "${ARM_CLIENT_ID}" -p "${ARM_CLIENT_SECRET}" --tenant "${ARM_TENANT_ID}"
           az vm list-skus --location "${location}" --zone --output table
   terraform-validate:
     runs-on: ubuntu-latest
@@ -100,10 +101,10 @@ jobs:
           chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
       - name: set TF vars if set
         run: |-
-          if [ -n ${{ vars.TF_VAR_location }} ]; then
+          if [ -n "${{ vars.TF_VAR_location }}" ]; then
           echo "TF_VAR_location=${{ vars.TF_VAR_location}}" >> "${GITHUB_ENV}"
           fi
-          if [ -n ${{ vars.TF_VAR_vm_size }} ]; then
+          if [ -n "${{ vars.TF_VAR_vm_size }}" ]; then
           echo "TF_VAR_vm_size=${{ vars.TF_VAR_vm_size}}" >> "${GITHUB_ENV}"
           fi
       - name: Terraform Plan
@@ -131,10 +132,10 @@ jobs:
           chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
       - name: set TF vars if set
         run: |-
-          if [ -n ${{ vars.TF_VAR_location }} ]; then
+          if [ -n "${{ vars.TF_VAR_location }}" ]; then
           echo "TF_VAR_location=${{ vars.TF_VAR_location}}" >> "${GITHUB_ENV}"
           fi
-          if [ -n ${{ vars.TF_VAR_vm_size }} ]; then
+          if [ -n "${{ vars.TF_VAR_vm_size }}" ]; then
           echo "TF_VAR_vm_size=${{ vars.TF_VAR_vm_size}}" >> "${GITHUB_ENV}"
           fi
       - name: Terraform Apply
@@ -162,10 +163,10 @@ jobs:
           chmod +x .terraform/providers/*/*/*/*/*/terraform-provider-*
       - name: set TF vars if set
         run: |-
-          if [ -n ${{ vars.TF_VAR_location }} ]; then
+          if [ -n "${{ vars.TF_VAR_location }}" ]; then
           echo "TF_VAR_location=${{ vars.TF_VAR_location}}" >> "${GITHUB_ENV}"
           fi
-          if [ -n ${{ vars.TF_VAR_vm_size }} ]; then
+          if [ -n "${{ vars.TF_VAR_vm_size }}" ]; then
           echo "TF_VAR_vm_size=${{ vars.TF_VAR_vm_size}}" >> "${GITHUB_ENV}"
           fi
       - name: Terraform Destroy
