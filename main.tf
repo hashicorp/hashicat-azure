@@ -105,7 +105,7 @@ resource "azurerm_public_ip" "catapp-pip" {
   name                = "${var.prefix}-ip"
   location            = azurerm_resource_group.myresourcegroup.location
   resource_group_name = azurerm_resource_group.myresourcegroup.name
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
   domain_name_label   = "${var.prefix}-meow"
 }
 
