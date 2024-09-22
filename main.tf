@@ -39,6 +39,7 @@ resource "azurerm_subnet" "subnet" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   resource_group_name  = azurerm_resource_group.myresourcegroup.name
   address_prefixes     = [var.subnet_prefix]
+  private_endpoint_network_policies_enabled = false
 }
 
 resource "azurerm_network_security_group" "catapp-sg" {
@@ -146,9 +147,7 @@ module "network" {
   source  = "bodhikshakti/network/azurerm"
   version = "3.5.0"
   resource_group_name = azurerm_resource_group.myresourcegroup.name
-  private_endpoint_network_policies_enabled = {
-    "subnet1" : false
-  }
+  
 }
 
 # We're using a little trick here so we can run the provisioner without
