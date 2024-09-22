@@ -37,6 +37,10 @@ variable "image_publisher" {
   default     = "Canonical"
 }
 
+variable "resource_group_name" {
+  description = "This resource_group_name will be included in the name of most resources."
+}
+
 variable "image_offer" {
   description = "Name of the offer (az vm image list)"
   default     = "0001-com-ubuntu-server-jammy"
