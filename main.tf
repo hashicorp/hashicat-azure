@@ -403,4 +403,3 @@ resource "null_resource" "configure-cat-app" {
     }
   }
 }
->>>>>>> 0202a2a66bc425044dad95be9f97ccbdc109f720
