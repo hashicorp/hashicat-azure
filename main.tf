@@ -39,7 +39,6 @@ resource "azurerm_subnet" "subnet" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   resource_group_name  = azurerm_resource_group.myresourcegroup.name
   address_prefixes     = [var.subnet_prefix]
-  private_endpoint_network_policies_enabled = false
 }
 
 resource "azurerm_network_security_group" "catapp-sg" {
